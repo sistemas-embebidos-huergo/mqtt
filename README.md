@@ -4,26 +4,26 @@ MQTT (Message Queuing Telemetry Transport) es un **protocolo de mensajería lige
 
 ---
 
-## 🧩 Componentes Principales
+## Componentes Principales
 
-### 1. 🗣 Publicador (Publisher)
+### 1. Publicador (Publisher)
 Dispositivo que **envía un mensaje** a un tema (topic).
 
 > Ejemplo: un sensor de temperatura que publica datos cada 5 segundos.
 
-### 2. 👂 Suscriptor (Subscriber)
+### 2. Suscriptor (Subscriber)
 Dispositivo o software que **escucha** un tema para recibir los mensajes publicados.
 
 > Ejemplo: una app que muestra en pantalla la temperatura recibida.
 
-### 3. 🧠 Broker MQTT
+### 3. Broker MQTT
 Servidor que **recibe, filtra y distribuye** los mensajes entre publicadores y suscriptores.
 
 > Es como un cartero: recibe un mensaje y lo entrega a quienes están esperando esa información.
 
 ---
 
-## 🧵 ¿Qué es un Topic?
+## ¿Qué es un Topic?
 
 Un **topic** es un **canal de comunicación** con un nombre jerárquico, como una dirección de mensaje.
 
@@ -36,7 +36,7 @@ Un dispositivo publica en un topic, y otro se suscribe a ese mismo topic para re
 
 ---
 
-## 📬 ¿Cómo Funciona MQTT?
+## ¿Cómo Funciona MQTT?
 
 1. Un dispositivo **publica** un mensaje en un **topic** a través del broker.
 2. El **broker** recibe el mensaje.
@@ -46,7 +46,7 @@ Este modelo se llama **publish/subscribe (pub/sub)**.
 
 ---
 
-## 🌍 Aplicaciones Comunes
+## Aplicaciones Comunes
 
 - Domótica (hogares inteligentes)
 - Sensores de temperatura, humedad, luz
@@ -57,7 +57,7 @@ Este modelo se llama **publish/subscribe (pub/sub)**.
 
 ---
 
-## 💡 Ventajas de MQTT
+## Ventajas de MQTT
 
 | Ventaja        | Descripción                                                  |
 |----------------|--------------------------------------------------------------|
@@ -69,20 +69,20 @@ Este modelo se llama **publish/subscribe (pub/sub)**.
 
 ---
 
-## ⚙️ Características Técnicas Avanzadas
+## Características Técnicas Avanzadas
 
-### 🔐 Niveles de Calidad de Servicio (QoS)
+### Niveles de Calidad de Servicio (QoS)
 
 - `0`: El mensaje se entrega **una vez máximo**, sin confirmación.
 - `1`: El mensaje se entrega **al menos una vez** (puede duplicarse).
 - `2`: El mensaje se entrega **exactamente una vez** (más seguro).
 
-### 🔒 Seguridad
+### Seguridad
 
 - Autenticación: usuario y contraseña
 - Cifrado: uso de TLS/SSL para conexiones seguras
 
-### 🌐 Brokers MQTT
+### Brokers MQTT
 
 - **Públicos**: sin necesidad de instalar nada  
   Ej: `broker.hivemq.com`
@@ -95,7 +95,7 @@ Este modelo se llama **publish/subscribe (pub/sub)**.
 
 ---
 
-## 🧪 Ejemplo de Comunicación entre ESP32
+## Ejemplo de Comunicación entre ESP32
 
 ```text
 ESP32 A → (publica en topic: "chat/B") → BROKER MQTT → (lo recibe ESP32 B suscrito a "chat/B")
