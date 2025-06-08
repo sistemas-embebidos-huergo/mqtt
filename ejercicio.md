@@ -3,13 +3,14 @@
 ## Objetivo
 Lograr que dos placas **ESP32** se comuniquen entre sí a través de un **chat básico**, usando el protocolo **MQTT**. Cada placa podrá **enviar y recibir mensajes**, simulando una conversación a través de una red Wi-Fi.
 
-
+## Formato
+Los mensajes enviados deben seguir la siguiente convención: `<apellido>: <mensaje>`. De esta manera quien lo reciba podrá identificar quien le está escribiendo.
 
 ## Conceptos que vas a trabajar
 
-- Comunicación Wi-Fi con ESP32  
-- Protocolo MQTT  
-- Publicación y suscripción a topics  
+- Comunicación `Wi-Fi` con ESP32  
+- Protocolo `MQTT ` 
+- Publicación y suscripción a `topics`  
 - Lectura y escritura desde el Monitor Serial  
 
 
@@ -30,11 +31,11 @@ Lograr que dos placas **ESP32** se comuniquen entre sí a través de un **chat b
 2. Vamos a usar un **broker público** para esta práctica:  
    - Dirección: `broker.hivemq.com`  
    - Puerto: `1883`
-   - Tópico (nombre del chat): `huergo/esp32-chat/<apellido>`
+   - Tópico (nombre del chat): `huergo/sistemas-embebidos/<apellido>`
 
 
 
-### Paso 3: Programar el ESP32 A (primer dispositivo del chat)
+### Paso 3: Programar el ESP32
 
 El ESP32 A será el **primer participante del chat**. Su tarea es:
 
@@ -53,10 +54,6 @@ El programa debe tener estas partes básicas:
 1. Conexión Wi-Fi  
 2. Configuración del broker MQTT  
 3. Suscripción a un topic  
-4. Envío de mensajes escritos por el usuario  (Core 1)
-5. Recepción de mensajes desde el otro ESP32   (Core 0)
-
-
 
 #### 1. Conectar al Wi-Fi
 
@@ -65,14 +62,11 @@ Es necesario escribir una función que conecte el ESP32 a una red Wi-Fi:
 ```cpp
 #include <WiFi.h>
 
-const char* ssid = "TU_SSID";
-const char* password = "TU_PASSWORD";
-
 // Conectarse a una red por nombre + contraseña
-WiFi.begin(ssid,password);
+WiFi.begin(<ssid>,<password>);
 
 if (WiFi.status() != WL_CONNECTED){
-  // fallo
+  // aun no esta conectado
 }
 // ok
 ```
@@ -92,13 +86,15 @@ client.setServer(<server_de_mqtt>,<puerto_de_mqtt>);
 ```cpp
 client.connect(<un_id_que_nos_identifique>) // devuelve un booleano indicando si se conecto correctamente
 
+client.connected(); // devuelve un booleano que nos permite chequear si la conexión fue exitosa
+
 client.subscribe(<nombre_del_topico>); // seguir patron del topico a escuchar
 ```
 
 ### 4. Leer del monitor serial el mensaje a enviar
 ```cpp
 if (Serial.available()) {
-  String mensaje = Serial.readStringUntil('\n');
+  String msg = Serial.readStringUntil('\n');
 }
 ```
 ### 5. Enviar un mensaje a un chat
@@ -108,11 +104,11 @@ if (Serial.available()) {
 
 ### 6. Recibir mensajes
 ```cpp
-// Callback (una función con una firma particualr) que respondera ante un nuevo mensaje recibido
+// Callback (una función con una firma particular) que respondera ante un nuevo mensaje recibido
 void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Mensaje recibido: ");
+  // Iteramos el payload
   for (int i = 0; i < length; i++) {
-    Serial.print((char)payload[i]);
+    
   }
   Serial.println();
 }
